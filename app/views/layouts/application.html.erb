@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BlogApp</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 
+  <body>
+   <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color: #dddddd">
+    <div class="container">
+      <div class="navbar-header">
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+         data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">User Details</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height:1px;">
+        <ul class="nav navbar-nav">
+          <li class="active"><!-- <a href="/managers">Users</a></li> -->
+          <li>
+          <li class=""><a href="/blogs">BlogApp <span class="sr-only">(current)</span></a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Location <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <!-- li><a href= "/cities/new" >New city</a></li>
+            <li><a href="/states/new">New state</a></li>
+            <li><a href="/countries/new">New Country</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="/regions/new">New Region</a></li>
+            <li><a href="/nodes/new">New Node</a></li> -->
+          </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+         <% if user_signed_in? %>
+           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+            <% else %>
+            <li><a href="/users/sign_in">Login</a></li> 
+               <!-- <li><a href="/users/sign_up">Register</a></li> --> 
+          <% end%>
+           <li><a href="/blog/profile">Profile</a> </li> 
+            <li><%= link_to 'Edit Profile',edit_user_registration_path %></li>  
+            <!-- <li><a href="/user_regions/new">UserToRegion</a></li>
+             <li><a href="/user_roles/new">User Role</a></li>  -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+   <br><br>
+    <%= yield %>
+     </div>
+      
+    <% if current_user %>
+      <div class="container">
+        <div class=row>
+          <div class="col-md-2 pull-right" >
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Chat<span class="glyphicon glyphicon-minus-sign minus-sign" style="float: right"></span><span class="glyphicon glyphicon-plus-sign plus-sign" style="float: right; display:none;"></span></h3>
+                         
+
+              </div>
+              <div class="panel-body" style="height:250px;overflow:auto;">
+                <%@users = User.all.where.not(id: current_user).where('name is not null')%>
+                <ul>
+                 <% @users.each do |user| %>
+
+                    <% if user.online?%>
+                      <div class="" style="float: right;
+                        line-height: 20px;
+                        margin: 0 1px 0 4px;
+                        text-align: right">
+                       <span style="background: rgb(66, 183, 42); border-radius: 50%; display: inline-block; height: 6px; margin-left: 4px; width: 6px;"></span>
+                      </div>
+                      <a href="/conversations?user_id=<%=user.id %>" data-remote=true data-method= post>
+            
+                     
+                      <span style="overflow: hidden;padding-left:8px;
+                      text-overflow: ellipsis;
+                          
+                      white-space: nowrap;"> <%= user.name.split.first%></span><hr/>
+                      </a>
+
+                     <% else %>
+                     <span style="color: #fff; border-radius: 50%; display: inline-block; height: 6px; margin-left: 4px; width: 6px; float: right; "></span>
+                      <a href="/conversations?user_id=<%=user.id %>" data-remote=true data-method= post>
+  
+                         
+                      <span style="overflow: hidden;padding-left:8px;
+                      text-overflow: ellipsis;
+                          
+                      white-space: nowrap;"><%= user.name.split.first%></span><hr/>
+                     </a>
+                    <% end %>
+                 <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    
+      <div class="">
+
+        <div id="conversations-list">
+          <%session[:conversations] ||= []%>
+         <% @conversations = Conversation.includes(:recipient, :messages)
+          .find(session[:conversations])%>
+         <% @conversations.each do |conversation| %>
+          <%= render 'conversations/conversation', conversation: conversation, user: current_user%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <%=render 'layouts/footer'%>
+  </body>
+</html>
+
+   
+<script type="text/javascript">
+
+$('.minus-sign').show(); 
+$('.panel-title').on('click',function(){
+   $('.panel-body').toggle()
+
+if($('.panel-body').css('display') == 'none'){ 
+
+  $('.minus-sign').hide(); 
+   $('.plus-sign').show(); 
+   
+} else { 
+  $('.plus-sign').hide();
+   $('.minus-sign').show(); 
+}
+})
+</script> 
+
+
+
+ 
