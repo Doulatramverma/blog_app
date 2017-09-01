@@ -1,4 +1,6 @@
+<div class="col-pad">
 <div class="container">
+ <%@users = User.all%>
  <%= form_for(blog) do |f| %>
     <% if blog.errors.any? %>
       <div id="error_explanation">
@@ -11,7 +13,7 @@
         </ul>
       </div>
     <% end %>
-
+     
     <div class="col-md-10">
      <div class="well well-sm">
        <%= f.label :title %>
@@ -25,12 +27,73 @@
        <%= f.text_field :description, class: "form-control" %>
      </div>
     </div>
-      
 
     <div class="col-md-10">
+    
       <div class="well well-sm">
-       <%= f.submit %>
+       Recommends-
+        <select multiple id="e1" name="user_id[]" class="form-control" placeholder='Tag User'>
+
+       <% @users.each do |user| %>
+          <option value="<%=user.id%>" class="form-control">
+            <%= user.email%>
+          </option>
+        <% end %>
+       </select>
+      </div>     
+    </div>
+
+
+    <div class="col-md-10">
+      
+       <%= f.submit "Post",:class=>"btn btn-primary" %>
       </div>
     </div>
   <% end %>
 </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+   </div>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-9">
+  <br/>
+  <div class="">
+   <% @blogs.each do |blog|%>
+     <div class="well well-sm  ">
+       <%= render 'show', blog: blog %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $("#e1").select2({
+        theme: "bootstrap",
+        multiple: true
+    });
+</script>
+
+
+
+
+<style type="text/css">
+  .col-pad{
+    margin-top: 50px;
+  }
+</style>
+
+
+

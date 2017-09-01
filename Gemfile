@@ -61,3 +61,5 @@ gem 'mailboxer'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_emoji_picker'
 gem 'carrierwave', '~> 1.0'
+gem "select2-rails"
+gem "mini_magick"

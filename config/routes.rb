@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   resources :meetings
   #root 'home#index'
-  root 'blogs#index'
-  get 'users/profile' => 'users#profile'
+  #root 'blogs#index'
+  root 'blogs#new'
+  #get 'users/profile' => 'users#profile'
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', sessions: 'sessions' }
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   
@@ -21,7 +22,7 @@ Rails.application.routes.draw do
   end
   resources :blogs do
    member do
-      get :tagging
+      get :taging
     end
   end
 

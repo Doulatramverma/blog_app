@@ -46,8 +46,8 @@
             <li><a href="/users/sign_in">Login</a></li> 
                <!-- <li><a href="/users/sign_up">Register</a></li> --> 
           <% end%>
-           <li><a href="/blog/profile">Profile</a> </li> 
-            <li><%= link_to 'Edit Profile',edit_user_registration_path %></li>  
+           <li><a href="/blog/profile">Profile</a></li> 
+          <li><%= link_to 'Edit Profile',edit_user_registration_path %></li>  
             <!-- <li><a href="/user_regions/new">UserToRegion</a></li>
              <li><a href="/user_roles/new">User Role</a></li>  -->
           </ul>
@@ -68,7 +68,7 @@
                          
 
               </div>
-              <div class="panel-body" style="height:250px;overflow:auto;">
+              <div class="panel-body" style="height:300px;overflow:auto;">
                 <%@users = User.all.where.not(id: current_user).where('name is not null')%>
                 <ul>
                  <% @users.each do |user| %>

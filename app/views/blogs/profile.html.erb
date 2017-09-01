@@ -60,16 +60,29 @@
     <center>
       <div>
         
-         <%#if @user.present?%>
-            <%#=image_tag @user.avatar.url(:thumb), :class=>"img-circle",:alt=>"Cinque Terre" %>
-         <%# end %>
+          <%if @user.avatar.url(:thumb).present? %>
+                    <%=image_tag @user.avatar.url(:thumb), :class=>"img-circle",:alt=>"Cinque Terre" %>
+                <% else %>
+                    <%= link_to image_tag("profile.png"), users_profile_path+ "?id=#{@user.id}"  %>
+                <% end %>
       </div>
    </center>
     <div class="continer my-continer padd2">
       <p>AboutUs</p>
       <div class="well well-sm  ">
-        <%#= @user.about%>
+        <%= @user.about%>
       </div>
+       <center>
+              <h2><%=@user.name.split.first %> posts</h2>
+             </center><hr/>
+
+            <% @tagging.each do |tag|%>
+                <%blog=Blog.find(tag.blog_id)%>
+                    <div class="well well-sm">
+                        <%=render partial: 'blogs/show', locals: {blog: blog} %>
+                       
+                    </div>
+            <%end%>
 
       <div class="btn-group">
         <p>Intrest</p>

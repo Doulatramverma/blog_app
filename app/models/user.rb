@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
   acts_as_messageable
+  has_many :taggings  ,dependent: :destroy
+  
   def mailboxer_email(object)
     email
   end

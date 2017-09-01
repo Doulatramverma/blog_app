@@ -20,7 +20,7 @@ class BlogsController < ApplicationController
 
     @blog = Blog.new
     @blogs = Blog.order("id DESC")
-    @user= current_user.friends
+    @user= current_user
   end
 
   # GET /blogs/1/edit
@@ -68,7 +68,7 @@ class BlogsController < ApplicationController
 
   # GET /users/:id.:format
   def profile
-    
+   
    if Friendship.where(receiver: current_user.id).first.present?
       @friend_request=Friendship.where(receiver: current_user.id)
     end 
@@ -85,19 +85,29 @@ class BlogsController < ApplicationController
   end
 
 
-  def tagging
+  def taging
    Tagging.create(:user_id=>params[:user_id],:blog_id=>params[:id])
    redirect_to :back
   end
 
   # POST /blogs
   # POST /blogs.json
+      
   def create
+   
     @blog = Blog.new(blog_params)
+    @blog.user_id= current_user.id
+    @user = params[:user_id]
+    @users = User.all.where.not(id: current_user).where('name is not null')
 
     respond_to do |format|
       if @blog.save
-        format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
+       if @user.present?
+          @user.each do |user|
+           Tagging.create(:user_id=> user, :blog_id=>@blog.id)
+          end
+        end
+        format.html { redirect_to :back }
         format.json { render :show, status: :created, location: @blog }
       else
         format.html { render :new }
@@ -139,6 +149,6 @@ class BlogsController < ApplicationController
    
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:title, :description)
+      params.require(:blog).permit(:id,:title, :description,:user_id)
     end
 end
