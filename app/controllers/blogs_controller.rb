@@ -68,7 +68,11 @@ class BlogsController < ApplicationController
 
   # GET /users/:id.:format
   def profile
-   
+    # @blogs = Blog.all
+    # @user = User.find(params[:id])
+    # @all_frinds = current_user.friends
+    # @tagging =Tagging.where(:user_id=>@user.id)
+
    if Friendship.where(receiver: current_user.id).first.present?
       @friend_request=Friendship.where(receiver: current_user.id)
     end 
@@ -149,6 +153,6 @@ class BlogsController < ApplicationController
    
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:id,:title, :description,:user_id)
+      params.require(:blog).permit(:id,:title, :description,:user_id,:image)
     end
 end

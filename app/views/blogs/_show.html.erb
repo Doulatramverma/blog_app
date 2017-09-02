@@ -2,26 +2,32 @@
 
 <p>
   <strong>Title:</strong>
-   <%#= content_with_emoji(@blog.title) %>
-  <%= blog.title %>
+   <%= content_with_emoji(blog.title) %>
+  <%#= blog.title %>
 </p>
 
 <p>
   <strong>Description:</strong>
   <%= blog.description %>
 </p>
-<!--  
-<ul>
+
+<p>
+  <strong>Image:</strong>
+  <%=image_tag blog.image %>
+</p>
+     <%= render partial: 'comments/comment', collection: blog.comments %>
+
+<!-- <ul>
   <%#= render partial: 'comments/comment', collection: @blog.comments %>
   </ul>
 
 <h3>Comments</h3>
-
+ -->
 <%#= form_for [@blog, Comment.new] do |f| %>
 <%#= f.text_area :body, placeholder: "Add a comment" %><br/>
 <%#= f.submit "Add Comment" %>
 <%# end %>
- -->
+ 
 
 <%#= link_to 'Edit', edit_blog_path(blog) %> 
 <%#= link_to 'Back', blogs_path %>

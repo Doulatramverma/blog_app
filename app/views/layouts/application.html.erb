@@ -23,9 +23,8 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height:1px;">
         <ul class="nav navbar-nav">
-          <li class="active"><!-- <a href="/managers">Users</a></li> -->
-          <li>
-          <li class=""><a href="/blogs">BlogApp <span class="sr-only">(current)</span></a></li>
+          
+          <li class=""><a href="/blogs/new">BlogApp <span class="sr-only">(current)</span></a></li>
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Location <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -46,7 +45,7 @@
             <li><a href="/users/sign_in">Login</a></li> 
                <!-- <li><a href="/users/sign_up">Register</a></li> --> 
           <% end%>
-           <li><a href="/blog/profile">Profile</a></li> 
+           <li><a href="/user/profile">Profile</a></li> 
           <li><%= link_to 'Edit Profile',edit_user_registration_path %></li>  
             <!-- <li><a href="/user_regions/new">UserToRegion</a></li>
              <li><a href="/user_roles/new">User Role</a></li>  -->
@@ -68,7 +67,7 @@
                          
 
               </div>
-              <div class="panel-body" style="height:300px;overflow:auto;">
+              <div class="panel-body" style="height:250px;overflow:auto;">
                 <%@users = User.all.where.not(id: current_user).where('name is not null')%>
                 <ul>
                  <% @users.each do |user| %>
@@ -90,7 +89,7 @@
                       </a>
 
                      <% else %>
-                     <span style="color: #fff; border-radius: 50%; display: inline-block; height: 6px; margin-left: 4px; width: 6px; float: right; "></span>
+                      <span style="color: #fff; border-radius: 50%; display: inline-block; height: 6px; margin-left: 4px; width: 6px; float: right; "></span>
                       <a href="/conversations?user_id=<%=user.id %>" data-remote=true data-method= post>
   
                          
@@ -98,7 +97,7 @@
                       text-overflow: ellipsis;
                           
                       white-space: nowrap;"><%= user.name.split.first%></span><hr/>
-                     </a>
+                     </a> 
                     <% end %>
                  <% end %>
                 </ul>
@@ -123,6 +122,17 @@
     <%=render 'layouts/footer'%>
   </body>
 </html>
+ 
+
+<style type="text/css">
+ .panel.panel-primary {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    width: 180px
+  }
+
+</style>
 
    
 <script type="text/javascript">

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
- 
+  
   # Define what an email should look like
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   acts_as_messageable
   has_many :taggings  ,dependent: :destroy
-  
+  has_many :blogs  ,dependent: :destroy
+
   def mailboxer_email(object)
     email
   end

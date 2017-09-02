@@ -10,14 +10,37 @@
     <div class="panel-body" style="display: none;">
       <div class="messages-list">
         <ul>
+        
           <%= render 'conversations/conversation_content', messages: conversation.messages, user: user %>
+
         </ul>
+
       </div>
       <%= form_for [conversation, conversation.messages.new], remote: true do |f| %>
+       
         <%= f.hidden_field :user_id, value: user.id %>
-        <%= f.text_area :body, class: "form-control" %>
+        <%= f.text_area :body, class: "form-control",  data: { emojiable: true }, id: 'form' %>
+
         <%= f.submit "Send", class: "btn btn-success" %>
       <% end %>
     </div>
+
   </div>
+
 </div>
+
+
+<style type="text/css">
+ .panel-default{
+    position: fixed;
+    right: : 50px;
+    bottom: 0px;
+    width: auto;
+  }
+</style>
+
+<script type="text/javascript">
+('#form').value('');
+</script>
+
+<!-- [div.emoji-wysiwyg-editor.form-control, div.emoji-wysiwyg-editor.form-control, prevObject: jQuery.fn.init(1), context: document, selector: ".emoji-wysiwyg-editor.form-control"] -->

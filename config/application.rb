@@ -2,7 +2,7 @@ require_relative 'boot'
 
 
 require 'rails/all'
-# config.time_zone = 'Central Time (US & Canada)'
+ #config.time_zone = 'New Delhi'
 # config.beginning_of_week = :sunday
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

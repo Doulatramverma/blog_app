@@ -12,6 +12,10 @@ class UsersController < ApplicationController
     # authorize! :read, @user
   end
   def profile
+    @blogs = Blog.all
+    @user = User.find(params[:id])
+    #@all_frinds = current_user.friends
+    @tagging =Tagging.where(:user_id=>@user.id)
     
   end
    

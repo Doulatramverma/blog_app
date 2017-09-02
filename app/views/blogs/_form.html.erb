@@ -29,9 +29,17 @@
     </div>
 
     <div class="col-md-10">
+     <div class="well well-sm">
+       <%= f.label :image %>
+       <%= f.file_field :image, class: "form-control" %>
+     </div>
+    </div>
+
     
-      <div class="well well-sm">
-       Recommends-
+       
+       <div class="col-md-10">
+       <div class="well well-sm">
+      Recommends-
         <select multiple id="e1" name="user_id[]" class="form-control" placeholder='Tag User'>
 
        <% @users.each do |user| %>
@@ -41,7 +49,7 @@
         <% end %>
        </select>
       </div>     
-    </div>
+      </div>
 
 
     <div class="col-md-10">
@@ -72,6 +80,7 @@
    <% @blogs.each do |blog|%>
      <div class="well well-sm  ">
        <%= render 'show', blog: blog %>
+       <%#= render 'link', blog: blog %>
       </div>
     <% end %>
   </div>

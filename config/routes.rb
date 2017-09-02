@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-   get 'blog/profile' => 'blogs#profile' 
+   get 'user/profile' => 'blogs#profile' 
   
   #get "/blogs/profile" => "blogs#show" 
   get "/user/addfriend" => "blogs#friend" 
